@@ -1,0 +1,42 @@
+[
+    {
+        "productId": "1",
+        "name": "name1",
+        "detail": "detail1",
+        "amount": 100,
+        "price": 100000,
+        "image": "https://img.lazcdn.com/g/p/740b440d65915e8f7f2839251867fe48.jpg_200x200q80.jpg_.webp"
+    },
+    {
+        "productId": "2",
+        "name": "name2",
+        "detail": "detail2",
+        "amount": 100,
+        "price": 100000,
+        "image": "https://img.lazcdn.com/g/ff/kf/S723bed23d3664c2e8e86c78f8dda0815o.jpg_200x200q80.jpg_.webp"
+    },
+    {
+        "productId": "3",
+        "name": "Nike Women's Downshifter 13 Shoes - Black ไนกี้ รองเท้าผู้หญิง Downshifter 13 - สีดำ",
+        "detail": "detail3",
+        "amount": 100,
+        "price": 100000000,
+        "image": "https://img.lazcdn.com/g/ff/kf/Sa46873781d74490ca38e7d7dff8f07d8D.jpg_200x200q80.jpg_.webp"
+    },
+    {
+        "productId": "4",
+        "name": "name4",
+        "detail": "detail4",
+        "amount": 100,
+        "price": 100000000,
+        "image": "https://img.lazcdn.com/g/ff/kf/S077b306fb1dd4b0d9be08992472cf23cb.jpg_200x200q80.jpg_.webp"
+    },
+    {
+        "productId": "5",
+        "name": "Nike Men's Air Winflo 11 Shoes - Black ไนกี้ รองเท้าผู้ชาย Air Winflo 11 - สีดำ",
+        "detail": "detail5",
+        "amount": 100,
+        "price": 1000000000,
+        "image": "https://img.lazcdn.com/g/ff/kf/Scdf112db46974879acf1a1d647f2ccd4R.jpg_200x200q80.jpg_.webp"
+    }
+]
