@@ -7,7 +7,7 @@ class MessageHepler {
   static showMessage(bool isSuccess, String message) {
     scaffoldMessengerKey.currentState!.showSnackBar(
       SnackBar( 
-        duration: Duration(seconds: 5),
+        duration: Duration(seconds: 2),
         backgroundColor: isSuccess == true ? Colors.green : Colors.red,
         content: Text(
           message,

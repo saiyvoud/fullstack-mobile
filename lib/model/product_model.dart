@@ -5,37 +5,37 @@ List<ProductModel> productModelFromJson(String str) => List<ProductModel>.from(
     json.decode(str).map((x) => ProductModel.fromJson(x)));
 class ProductModel {
 // ແມ່ນການປະກາດຕົວປ່ຽນຮັບຄ່າ
-  final String? productId;
-  final String? name;
-  final String? detail;
-  final int? amount;
-  final int? price;
+  final String? productID;
+  final String? proName_la;
+  final String? proDetail_la;
+  final int? proQty;
+  final int? proPrice;
   final String? image;
 // contrature ແມ່ນການເອີ້ນໃຊ້ຕົວປ່ຽນ
   ProductModel({
-    this.productId,
-    this.name,
-    this.detail,
-    this.amount,
-    this.price,
+    this.productID,
+    this.proName_la,
+    this.proDetail_la,
+    this.proQty,
+    this.proPrice,
     this.image,
   });
 // ປ່ຽນຂໍ້ມູນໃຫ້ເປັນ json ຫລື ເປັນ object
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
-        productId: json['productId'],
-        name: json['name'],
-        detail: json['detail'],
-        amount: int.parse(json['amount'].toString()),
-        price: int.parse(json['price'].toString()),
+        productID: json['productID'],
+        proName_la: json['proName_la'],
+        proDetail_la: json['proDetail_la'],
+        proQty: int.parse(json['proQty'].toString()),
+        proPrice: int.parse(json['proPrice'].toString()),
         image: json['image'],
       );
   // ເປັນການປ່ຽນຂໍ້ມູນຈາກ model ເປັນ json ຄືນ
   Map<String, dynamic> toJson() => {
-        "productId": productId,
-        "name": name,
-        "detail": detail,
-        "amount": amount,
-        "price": price,
+        "productID": productID,
+        "proName_la": proName_la,
+        "proDetail_la": proDetail_la,
+        "proQty": proQty,
+        "proPrice": proPrice,
         "image": image,
       };
 }

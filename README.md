@@ -35,3 +35,20 @@ server {
         proxy_pass http://127.0.0.1:8001$request_uri;
     }
 }
+
+server {
+    listen 80;
+    server_name ec2-47-129-60-120.ap-southeast-1.compute.amazonaws.com;
+
+    location / {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $server_name;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    # Redirect all HTTP requests to HTTPS
+    return 301 https://$server_name$request_uri;
+}
