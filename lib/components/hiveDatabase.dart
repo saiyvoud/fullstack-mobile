@@ -3,7 +3,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:restaurant_app/model/product_model.dart';
 
 class Hivedatabase {
-   static Future<bool> deleteOrderID({
+  static Future<bool> deleteOrderID({
     required int index,
   }) async {
     try {
@@ -15,7 +15,8 @@ class Hivedatabase {
       return false;
     }
   }
-   static Future<String> getOrderID() async {
+
+  static Future<String> getOrderID() async {
     try {
       final box = await Hive.openBox<dynamic>('orderID');
       final data = await box.getAt(0);
@@ -26,12 +27,21 @@ class Hivedatabase {
       rethrow;
     }
   }
-   static Future<bool> addOrderID({
-    required String orderID
-  }) async {
+
+  static Future<bool> addOrderID({required String orderID}) async {
     try {
       final box = await Hive.openBox<dynamic>('orderID');
 
+      try {
+        await box.deleteAt(0);
+      } catch (e) {
+        await box.add({
+          "orderID": orderID,
+        });
+
+        print("Added orderID: ${orderID}");
+        return true;
+      }
       // Add product to cart
       await box.add({
         "orderID": orderID,
@@ -44,6 +54,7 @@ class Hivedatabase {
       return false;
     }
   }
+
   static Future<bool> deleteCartAll() async {
     try {
       final box = Hive.isBoxOpen('cart')
@@ -84,7 +95,7 @@ class Hivedatabase {
       return null;
     }
   }
-  
+
   static Future<bool> addCart({
     required ProductModel data,
   }) async {
@@ -109,7 +120,6 @@ class Hivedatabase {
     }
   }
 
-  
   static Future<bool> updateCart({
     required ProductModel data,
     required int index,

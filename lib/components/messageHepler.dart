@@ -20,4 +20,13 @@ class MessageHepler {
       ),
     );
   }
+  static showMessageBar() {
+    scaffoldMessengerKey.currentState!.showSnackBar(
+      SnackBar( 
+        duration: Duration(microseconds: 100 ),
+        backgroundColor: Colors.transparent,
+        content: SizedBox(),
+      ),
+    );
+  }
 }

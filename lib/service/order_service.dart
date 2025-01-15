@@ -3,18 +3,98 @@ import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:restaurant_app/components/apiPath.dart';
 import 'package:http/http.dart' as http;
+import 'package:restaurant_app/components/globalKey.dart';
 import 'package:restaurant_app/components/hiveDatabase.dart';
 
 class OrderService {
+  Future<bool> updateStatus({
+    required String orderID,
+    required String paymentType,
+    required String priceTotal,
+  }) async {
+    try {
+      final header = {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${TOKEN}"
+      };
+      final body = {
+        "paymentType": paymentType,
+        "priceTotal": priceTotal,
+      };
+      final response = await http.put(
+        Uri.parse(ApiPath.updateStatus + orderID),
+        body: body,
+        headers: header,
+      );
+
+      final data = jsonDecode(response.body);
+      if (data['success'] == true) {
+        final result = data['data'];
+        return result;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      print(e);
+      return false;
+    }
+  }
+
+  Future<List<dynamic>?> getOrderByStatus({
+    required String status,
+  }) async {
+    try {
+      final header = {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${TOKEN}"
+      };
+      final response = await http.get(
+        Uri.parse(ApiPath.getOrderByUserStatus + status),
+        headers: header,
+      );
+
+      final data = jsonDecode(response.body);
+      if (data['success'] == true) {
+        final result = data['data'];
+        return result;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<dynamic> getOrderDetailBy({
+    required String orderID,
+  }) async {
+    try {
+      final header = {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${TOKEN}"
+      };
+      final response = await http.get(
+        Uri.parse(ApiPath.getOrderDetailBy + orderID),
+        headers: header,
+      );
+
+      final data = jsonDecode(response.body);
+      if (data['success'] == true) {
+        final result = data['data'];
+        return result;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<bool> order() async {
     try {
-      final token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4YWViNzlmLTViNTAtNDc5OC1hNjI2LWY1MTBkNGMyZjRlZCIsImlhdCI6MTczNjI1MTQ0OSwiZXhwIjoxNzM2MjU4NjQ5fQ.3gbCCYQQknhJXSaL5iccoWsevwetvj39c9-eT5uWy9U"; // await Hivedatabase.getToken();
       var tableID =
           "2d3f4ac6-fb92-45af-8684-e0c0ba6996a9"; //await Hivedatabase.getToken();
       final header = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${token}"
+        "Authorization": "Bearer ${TOKEN}"
       };
 
       final body = {
@@ -42,11 +122,9 @@ class OrderService {
     required List<dynamic> cart,
   }) async {
     try {
-      final token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4YWViNzlmLTViNTAtNDc5OC1hNjI2LWY1MTBkNGMyZjRlZCIsImlhdCI6MTczNjI1MTQ0OSwiZXhwIjoxNzM2MjU4NjQ5fQ.3gbCCYQQknhJXSaL5iccoWsevwetvj39c9-eT5uWy9U"; // await Hivedatabase.getToken();
       final orderID = await Hivedatabase.getOrderID();
       Map<String, String> headers = {
-        'Authorization': 'Bearer ${token}'
+        'Authorization': 'Bearer ${TOKEN}',
       };
       for (var i = 0; i < cart.length; i++) {
         final body = {

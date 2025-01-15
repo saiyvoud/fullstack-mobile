@@ -21,19 +21,22 @@ class _HomeViewState extends State<HomeView> {
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(
         backgroundColor: Colors.grey.shade300,
-        leading: Container(
-          height: 50,
-          width: 50,
-          //decoration: BoxDecoration(color: Colors.red),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SvgPicture.asset(
-              "assets/icons/category.svg",
-              color: Colors.red,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
+        leading: Center(child: Text("Welcome",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+        leadingWidth: 100,
+        centerTitle: true,
+        // leading: Container(
+        //   height: 50,
+        //   width: 50,
+        //   //decoration: BoxDecoration(color: Colors.red),
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(8.0),
+        //     child: SvgPicture.asset(
+        //       "assets/icons/category.svg",
+        //       color: Colors.red,
+        //       fit: BoxFit.cover,
+        //     ),
+        //   ),
+        // ),
         actions: [
           Consumer<ProductProvider>(
             builder: (context,cart,child) {

@@ -26,7 +26,7 @@ class ProductProvider extends ChangeNotifier {
       final result = await ProductService().deleteCartOne(index: index);
       if (result == true) {
         _loading = false;
-        MessageHepler.showMessage(true, "ລົບສິນຄ້າສຳເລັດ");
+       // MessageHepler.showMessage(true, "ລົບສິນຄ້າສຳເລັດ");
         getCart();
         notifyListeners();
       } else {
@@ -58,12 +58,12 @@ class ProductProvider extends ChangeNotifier {
       final result = await ProductService().deleteCartAll();
       if (result == true) {
         _loading = false;
-        MessageHepler.showMessage(true, "ລົບສິນຄ້າທັງໝົດສຳເລັດ");
+        //MessageHepler.showMessage(true, "ລົບສິນຄ້າທັງໝົດສຳເລັດ");
         getCart();
         notifyListeners();
       } else {
         _loading = false;
-        MessageHepler.showMessage(false, result.toString());
+        //MessageHepler.showMessage(false, result.toString());
         notifyListeners();
       }
     } catch (e) {
@@ -89,12 +89,12 @@ class ProductProvider extends ChangeNotifier {
         }
         _totalPrice = _total;
 
-        MessageHepler.showMessage(true, "Get Cart Success");
+        MessageHepler.showMessageBar();
         notifyListeners();
       } else {
         _loading = false;
 
-        MessageHepler.showMessage(false, "Get Cart Faild");
+       // MessageHepler.showMessage(false, "Get Cart Faild");
         notifyListeners();
       }
     } catch (e) {
@@ -117,12 +117,12 @@ class ProductProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         _loading = false;
-        MessageHepler.showMessage(false, result.toString());
+        //MessageHepler.showMessage(false, result.toString());
         notifyListeners();
       }
     } catch (e) {
       _loading = false;
-      MessageHepler.showMessage(false, "Faild");
+     // MessageHepler.showMessage(false, "Faild");
       notifyListeners();
     }
   }
@@ -149,12 +149,12 @@ class ProductProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         _loading = false;
-        MessageHepler.showMessage(false, result.toString());
+       // MessageHepler.showMessage(false, result.toString());
         notifyListeners();
       }
     } catch (e) {
       _loading = false;
-      MessageHepler.showMessage(false, "Faild");
+     // MessageHepler.showMessage(false, "Faild");
       notifyListeners();
     }
   }

@@ -3,7 +3,7 @@ import 'package:restaurant_app/components/bottomNavigator_widget.dart';
 import 'package:restaurant_app/view/auth/login_view.dart';
 import 'package:restaurant_app/view/auth/register_view.dart';
 import 'package:restaurant_app/view/home_view.dart';
-import 'package:restaurant_app/view/order/bill_view.dart';
+import 'package:restaurant_app/view/cart/bill_view.dart';
 
 class RouterPath {
   static const String splashScreen = "/";

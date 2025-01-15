@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_app/view/order/widget/order_padding.dart';
+import 'package:restaurant_app/view/order/widget/order_success.dart';
 
 class MyOrder extends StatefulWidget {
   const MyOrder({super.key});
@@ -47,10 +48,7 @@ class _MyOrderState extends State<MyOrder> with SingleTickerProviderStateMixin {
         controller: _tabController,
         children: [
           OrderPadding(),
-          Container(
-            height: 100,
-            decoration: BoxDecoration(color: Colors.indigo),
-          ),
+          OrderSuccess(),
         ],
       ),
     );

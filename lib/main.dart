@@ -13,7 +13,7 @@ import 'package:restaurant_app/provider/product_provider.dart';
 import 'package:restaurant_app/router/router.dart';
 import 'package:restaurant_app/view/home_view.dart';
 
-import 'package:restaurant_app/view/order/bill_view.dart';
+import 'package:restaurant_app/view/cart/bill_view.dart';
 import 'package:restaurant_app/view/tester_view.dart';
 
 void main() async {
@@ -25,8 +25,15 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
-        ChangeNotifierProvider(create: (_) => ProductProvider()..getProduct()..getCart()),
-        ChangeNotifierProvider(create: (_) => OrderProvider()),
+        ChangeNotifierProvider(
+            create: (_) => ProductProvider()
+              ..getProduct()
+              ..getCart()),
+        ChangeNotifierProvider(
+          create: (_) => OrderProvider()
+            ..getOrderByStatusPadding()
+            ..getOrderByStatusSuccess(),
+        ),
       ],
       child: MyApp(),
     ),

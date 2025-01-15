@@ -178,7 +178,7 @@ class _CartViewState extends State<CartView> {
                           Loading(context);
                           order.orderDetail(cart: value.carts);
                         }
-                        MessageHepler.showMessage(false, 'ຍັງບໍ່ມີຂໍ້ມູນ');
+                        // MessageHepler.showMessage(false, 'ຍັງບໍ່ມີຂໍ້ມູນ');
                       },
                       child: Container(
                         height: 50,

@@ -1,14 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/components/loading.dart';
+import 'package:restaurant_app/provider/order_provider.dart';
 import 'package:restaurant_app/provider/product_provider.dart';
 
-class BillView extends StatelessWidget {
+class BillOrderSuccess extends StatefulWidget {
+  final String orderID;
+  final String totalPrice;
+  const BillOrderSuccess({super.key, required this.orderID, required this.totalPrice});
+  @override
+  State<BillOrderSuccess> createState() => _BillOrderSuccessState();
+}
+
+class _BillOrderSuccessState extends State<BillOrderSuccess> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<OrderProvider>(context, listen: false)
+          .getOrderDetailBy(orderID: widget.orderID);
+    });
+  }
+ 
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Consumer<ProductProvider>(builder: (context, product, child) {
+      body: Consumer<OrderProvider>(builder: (context, order, child) {
+        if (order.loading == true) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Stack(
           children: <Widget>[
             ClipPath(
@@ -132,9 +157,14 @@ class BillView extends StatelessWidget {
                                   ListView.builder(
                                       shrinkWrap: true,
                                       primary: false,
-                                      itemCount: product.carts.length,
+                                      itemCount: order.orders.length,
                                       itemBuilder: (context, index) {
-                                        final data = product.carts;
+                                        if (order.loading == true) {
+                                          return Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+                                        final data = order.orders;
                                         return Padding(
                                           padding:
                                               EdgeInsets.symmetric(vertical: 2),
@@ -154,7 +184,7 @@ class BillView extends StatelessWidget {
                                               Expanded(
                                                 flex: 1,
                                                 child: Text(
-                                                  data[index]['proQty']
+                                                  data[index]['amount']
                                                       .toString(),
                                                   textAlign: TextAlign.center,
                                                 ),
@@ -188,7 +218,7 @@ class BillView extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Text(
-                              '${product.totalPrice}',
+                              '${widget.totalPrice}',
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -200,14 +230,12 @@ class BillView extends StatelessWidget {
                     ),
                   ),
                 ),
-                
                 Padding(
                   padding: const EdgeInsets.only(top: 60.0),
                   child: InkWell(
                     splashColor: Colors.red,
                     onTap: () {
-                       Loading(context);
-                        product.goToHome();
+                     Navigator.pop(context);
                     },
                     child: Container(
                       width: 300.0,
@@ -219,7 +247,7 @@ class BillView extends StatelessWidget {
                           color: Colors.white),
                       child: Center(
                         child: Text(
-                          'Done',
+                          'Back',
                           style: TextStyle(
                               color: Colors.indigo[700], fontSize: 15.0),
                         ),
