@@ -13,9 +13,10 @@ class OrderService {
     required String priceTotal,
   }) async {
     try {
+     final token = await Hivedatabase.getToken();
       final header = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${TOKEN}"
+        "Authorization": "Bearer ${token!['token']}"
       };
       final body = {
         "paymentType": paymentType,
@@ -29,8 +30,8 @@ class OrderService {
 
       final data = jsonDecode(response.body);
       if (data['success'] == true) {
-        final result = data['data'];
-        return result;
+      
+        return true;
       } else {
         return false;
       }
@@ -44,9 +45,10 @@ class OrderService {
     required String status,
   }) async {
     try {
+      final token = await Hivedatabase.getToken();
       final header = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${TOKEN}"
+        "Authorization": "Bearer ${token!['token']}"
       };
       final response = await http.get(
         Uri.parse(ApiPath.getOrderByUserStatus + status),
@@ -69,9 +71,10 @@ class OrderService {
     required String orderID,
   }) async {
     try {
+      final token = await Hivedatabase.getToken();
       final header = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${TOKEN}"
+        "Authorization": "Bearer ${token!['token']}"
       };
       final response = await http.get(
         Uri.parse(ApiPath.getOrderDetailBy + orderID),
@@ -92,11 +95,11 @@ class OrderService {
     try {
       var tableID =
           "2d3f4ac6-fb92-45af-8684-e0c0ba6996a9"; //await Hivedatabase.getToken();
+      final token = await Hivedatabase.getToken();
       final header = {
         "Accept": "application/json",
-        "Authorization": "Bearer ${TOKEN}"
+        "Authorization": "Bearer ${token!['token']}"
       };
-
       final body = {
         "tableID": tableID,
       };
@@ -123,8 +126,10 @@ class OrderService {
   }) async {
     try {
       final orderID = await Hivedatabase.getOrderID();
-      Map<String, String> headers = {
-        'Authorization': 'Bearer ${TOKEN}',
+      final token = await Hivedatabase.getToken();
+      final headers = {
+        "Accept": "application/json",
+        "Authorization": "Bearer ${token!['token']}"
       };
       for (var i = 0; i < cart.length; i++) {
         final body = {

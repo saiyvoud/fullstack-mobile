@@ -31,10 +31,13 @@ class OrderProvider extends ChangeNotifier {
         paymentType: paymentType,
         priceTotal: priceTotal,
       );
-
+      NavService.pop();
       if (result == true) {
         _loading = false;
         MessageHepler.showMessage(true, "update Success");
+       await getOrderByStatusPadding();
+       await getOrderByStatusSuccess();
+        NavService.pushReplacementNamed(RouterPath.bottom);
         notifyListeners();
       } else {
         MessageHepler.showMessage(false, "Order Faild");
@@ -57,7 +60,7 @@ class OrderProvider extends ChangeNotifier {
         _loading = false;
         notifyListeners();
       } else {
-        MessageHepler.showMessage(false, "Order Faild");
+        // MessageHepler.showMessage(false, "Order Faild");
       }
     } catch (e) {
       _loading = false;
@@ -75,9 +78,10 @@ class OrderProvider extends ChangeNotifier {
         _orderDataSuccess = result;
         print(_orders);
         _loading = false;
+        
         notifyListeners();
       } else {
-        MessageHepler.showMessage(false, "Order Faild");
+      //  MessageHepler.showMessage(false, "Order Faild");
       }
     } catch (e) {
       _loading = false;

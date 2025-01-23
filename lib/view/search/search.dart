@@ -9,129 +9,32 @@ import 'package:restaurant_app/provider/product_provider.dart';
 import 'package:restaurant_app/router/router.dart';
 import 'package:restaurant_app/view/cart/cart.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class SearchView extends StatefulWidget {
+  const SearchView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<SearchView> createState() => _SearchViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _SearchViewState extends State<SearchView> {
   TextEditingController search = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
-      appBar: AppBar(
-        backgroundColor: Colors.grey.shade300,
-        leading: Center(child: Text("Welcome",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
-        leadingWidth: 100,
-        centerTitle: true,
-        // leading: Container(
-        //   height: 50,
-        //   width: 50,
-        //   //decoration: BoxDecoration(color: Colors.red),
-        //   child: Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: SvgPicture.asset(
-        //       "assets/icons/category.svg",
-        //       color: Colors.red,
-        //       fit: BoxFit.cover,
-        //     ),
-        //   ),
-        // ),
-        actions: [
-          Consumer<ProductProvider>(
-            builder: (context,cart,child) {
-              return Container(
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      child: Container(
-                        height: 18,
-                        width: 18,
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: Colors.white),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "${cart.carts.length}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => CartView(),
-                            ),
-                          );
-                        },
-                        icon: Icon(
-                          Icons.shopping_cart,
-                          // color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Consumer<ProductProvider>(builder: (context, value, child) {
-              return GestureDetector(
-                onTap: () {
-                  value.deleteCartAll();
-                },
-                child: Container(
-                  height: 50,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(60)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(2.0),
-                    child: Image.asset(
-                      "assets/icons/man.png",
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              );
-            }),
-          ),
-        ],
-      ),
+     
       body: Consumer<ProductProvider>(builder: (context, value, child) {
-        if(value.loading == true){
-          return Center(child: CircularProgressIndicator(),);
+        if (value.loading == true) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         }
         return SingleChildScrollView(
           child: Column(
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    const EdgeInsets.symmetric(vertical: 50, horizontal: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -144,15 +47,14 @@ class _HomeViewState extends State<HomeView> {
                           borderRadius: BorderRadius.circular(10)),
                       child: TextFormField(
                         controller: search,
-                      
                         decoration: InputDecoration(
                             hintText: "Search Shose",
                             suffixIcon: GestureDetector(
-                              onTap: (){
-                                 Loading(context);
-                                 value.search(search: search.text);
-                              },
-                              child: Icon(Icons.search)),
+                                onTap: () {
+                                  Loading(context);
+                                  value.search(search: search.text);
+                                },
+                                child: Icon(Icons.search)),
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 10),
                             border: InputBorder.none),
@@ -161,11 +63,11 @@ class _HomeViewState extends State<HomeView> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: GestureDetector(
-                        onTap: ()async{
+                        onTap: () async {
                           Loading(context);
                           value.getProduct();
-                         await Future.delayed(Duration(seconds: 2));
-                           NavService.pop();
+                          await Future.delayed(Duration(seconds: 2));
+                          NavService.pop();
                         },
                         child: Container(
                           height: 50,

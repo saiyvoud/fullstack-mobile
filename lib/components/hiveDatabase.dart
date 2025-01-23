@@ -182,25 +182,36 @@ class Hivedatabase {
   }) async {
     try {
       final box = await Hive.openBox<Map>("tokens");
-      await box.deleteAll(['tokens']);
-      await box.add({
-        "token": token,
-        "refreshToken": refreshToken,
-      });
-      final result = await box.getAt(0);
+      try {
+        final result = await box.getAt(0);
+        if (result!.isNotEmpty) {
+          await box.putAt(0, {
+            "token": token,
+            "refreshToken": refreshToken,
+          });
+        }
+      } catch (e) {
+        await box.add({
+          "token": token,
+          "refreshToken": refreshToken,
+        });
+      }
 
-      print("token===>${result!['token']}");
       return true;
     } catch (e) {
       return false;
     }
   }
 
-  static Future<String?> getToken() async {
+  static Future<dynamic> getToken() async {
     try {
       final box = await Hive.openBox<Map>("tokens");
-      final data = await box.getAt(0);
-      return data!['token'].toString();
+      try {
+        final data = await box.getAt(0);
+        return data;
+      } catch (e) {
+        return null;
+      }
     } catch (e) {
       rethrow;
     }
@@ -209,7 +220,7 @@ class Hivedatabase {
   static Future<bool> deleteToken() async {
     try {
       final box = await Hive.openBox<Map>("tokens");
-      await box.delete('tokens');
+      await box.deleteAt(0);
       return true;
     } catch (e) {
       return false;

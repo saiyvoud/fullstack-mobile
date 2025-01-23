@@ -4,6 +4,7 @@ import 'package:restaurant_app/view/auth/login_view.dart';
 import 'package:restaurant_app/view/auth/register_view.dart';
 import 'package:restaurant_app/view/home_view.dart';
 import 'package:restaurant_app/view/cart/bill_view.dart';
+import 'package:restaurant_app/view/splashScreen/splashScreen.dart';
 
 class RouterPath {
   static const String splashScreen = "/";
@@ -18,7 +19,7 @@ class RouterPath {
     switch (setting.name) {
       case splashScreen:
         return MaterialPageRoute(
-          builder: (_) => BottomNavigatorWidget(),
+          builder: (_) => SplashScreen(),
         );
       case bottom:
         return MaterialPageRoute(

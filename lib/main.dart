@@ -14,6 +14,7 @@ import 'package:restaurant_app/router/router.dart';
 import 'package:restaurant_app/view/home_view.dart';
 
 import 'package:restaurant_app/view/cart/bill_view.dart';
+import 'package:restaurant_app/view/splashScreen/splashScreen.dart';
 import 'package:restaurant_app/view/tester_view.dart';
 
 void main() async {
@@ -24,7 +25,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()..getProfile()),
         ChangeNotifierProvider(
             create: (_) => ProductProvider()
               ..getProduct()
@@ -51,8 +52,8 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: RouterPath.generateRoute,
       debugShowCheckedModeBanner: false,
       navigatorKey: NavService.navigatorKey,
-      initialRoute: RouterPath.home,
-      //home: BillView(),
+      initialRoute: RouterPath.splashScreen,
+      home: SplashScreen(),
     );
   }
 }

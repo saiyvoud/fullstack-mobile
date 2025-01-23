@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_app/components/barcodesimple.dart';
 import 'package:restaurant_app/view/home_view.dart';
 import 'package:restaurant_app/view/order/myOrder.dart';
+import 'package:restaurant_app/view/profile/profile.dart';
 import 'package:restaurant_app/view/qrcode/qrcode_view.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:restaurant_app/view/search/search.dart';
 
 class BottomNavigatorWidget extends StatefulWidget {
   const BottomNavigatorWidget({super.key});
@@ -15,26 +17,14 @@ class BottomNavigatorWidget extends StatefulWidget {
 }
 
 class _BottomNavigatorWidgetState extends State<BottomNavigatorWidget> {
- 
-
   int currentIndex = 0;
   List<Widget> _children = [
-     HomeView(),
-   // QRCodeView(),
-    Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.red,
-      ),
-    ),
+    HomeView(),
+    // QRCodeView(),
+    SearchView(),
 
     MyOrder(),
-    Container(
-      height: 200,
-      decoration: BoxDecoration(
-        color: Colors.purple,
-      ),
-    ),
+    ProfileView(),
   ];
   _onTap(int index) {
     setState(() {
@@ -42,7 +32,6 @@ class _BottomNavigatorWidgetState extends State<BottomNavigatorWidget> {
     });
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

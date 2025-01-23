@@ -26,7 +26,7 @@ class ProductProvider extends ChangeNotifier {
       final result = await ProductService().deleteCartOne(index: index);
       if (result == true) {
         _loading = false;
-       // MessageHepler.showMessage(true, "ລົບສິນຄ້າສຳເລັດ");
+        // MessageHepler.showMessage(true, "ລົບສິນຄ້າສຳເລັດ");
         getCart();
         notifyListeners();
       } else {
@@ -44,7 +44,7 @@ class ProductProvider extends ChangeNotifier {
   Future<void> goToHome() async {
     try {
       await deleteCartAll();
-      
+
       NavService.pushNamedAndRemoveUntil(RouterPath.home);
       notifyListeners();
     } catch (e) {
@@ -94,7 +94,7 @@ class ProductProvider extends ChangeNotifier {
       } else {
         _loading = false;
 
-       // MessageHepler.showMessage(false, "Get Cart Faild");
+        // MessageHepler.showMessage(false, "Get Cart Faild");
         notifyListeners();
       }
     } catch (e) {
@@ -122,7 +122,7 @@ class ProductProvider extends ChangeNotifier {
       }
     } catch (e) {
       _loading = false;
-     // MessageHepler.showMessage(false, "Faild");
+      // MessageHepler.showMessage(false, "Faild");
       notifyListeners();
     }
   }
@@ -149,12 +149,12 @@ class ProductProvider extends ChangeNotifier {
         notifyListeners();
       } else {
         _loading = false;
-       // MessageHepler.showMessage(false, result.toString());
+        // MessageHepler.showMessage(false, result.toString());
         notifyListeners();
       }
     } catch (e) {
       _loading = false;
-     // MessageHepler.showMessage(false, "Faild");
+      // MessageHepler.showMessage(false, "Faild");
       notifyListeners();
     }
   }
@@ -193,6 +193,26 @@ class ProductProvider extends ChangeNotifier {
     } catch (e) {
       _loading = false;
       MessageHepler.showMessage(false, e.toString());
+      notifyListeners();
+    }
+  }
+
+  Future<void> search({
+    required String search,
+  }) async {
+    _loading = true;
+    try {
+      final result = await ProductService().search(search: search);
+      NavService.pop();
+      if (result!.length > 0) {
+        _productModel = result;
+        _loading = false;
+        MessageHepler.showMessage(true, "Search Success");
+        notifyListeners();
+      }
+    } catch (e) {
+      _loading = false;
+      MessageHepler.showMessage(false, "ບໍ່ມີລາຍການທີ່ຄົ້ນຫາ");
       notifyListeners();
     }
   }
